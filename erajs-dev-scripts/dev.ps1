@@ -1,0 +1,1 @@
+New-Item -Path ..\erajs-sdk\erajs -Target ..\erajs-backend\erajs -ItemType SymbolicLink

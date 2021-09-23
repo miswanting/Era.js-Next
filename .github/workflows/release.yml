@@ -1,0 +1,71 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - dev
+    # tags:
+    #   - "v*.*.*"
+
+jobs:
+  windows-builder:
+    runs-on: windows-latest
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+          architecture: 'x64'
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+      - name: Checkout Dev Branch
+        uses: actions/checkout@v2
+        with:
+          ref: "dev"
+      - name: Commands
+        run: |
+          Set-Location -Path erajs-frontend
+          yarn init
+          yarn build
+          Set-Location -Path ..\erajs-desktop
+          yarn init
+          yarn pack
+          Set-Location -Path ..
+          New-Item -Path Era.js-SDK-web -ItemType directory
+          Copy-Item -Path erajs-sdk\* -Destination Era.js-SDK-web
+          Copy-Item -Path erajs-backend\erajs -Destination Era.js-SDK-web
+          Copy-Item -Path erajs-frontend\dist\* -Destination Era.js-SDK-web\erajs\www
+          New-Item -Path Era.js-SDK-win-x64 -ItemType directory
+          Copy-Item -Path Era.js-SDK-web\* -Destination Era.js-SDK-win-x64
+          Copy-Item -Path erajs-desktop\build\win-unpacked\* -Destination Era.js-SDK-win-x64
+          Compress-Archive -Path Era.js-SDK-web -DestinationPath Era.js-SDK-web.zip
+          Compress-Archive -Path Era.js-SDK-win-x64 -DestinationPath Era.js-SDK-win-x64.zip
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: |
+            Era.js-SDK-web.zip
+            Era.js-SDK-win-x64.zip
+  # ubuntu-builder:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Set up Python
+  #       uses: actions/setup-python@v2
+  #       with:
+  #         python-version: '3.8'
+  #         architecture: 'x64'
+  #     - name: Set up Node.js
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: "16"
+  #     - name: Checkout Dev Branch
+  #       uses: actions/checkout@v2
+  #       with:
+  #         ref: "dev"
+  #     - name: Commands
+  #       run: |
+  #         mkdir Era.js-SDK-linux-x64

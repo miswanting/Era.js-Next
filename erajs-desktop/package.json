@@ -1,0 +1,29 @@
+{
+  "name": "erajs-desktop",
+  "version": "0.1.0",
+  "description": "Era.js Desktop Container",
+  "main": "dist/main.js",
+  "repository": "https://github.com/miswanting/Era.js-Next.git",
+  "author": "Miswanting",
+  "license": "GPL-3.0+",
+  "scripts": {
+    "init": "yarn",
+    "postinstall": "yarn electron-builder install-app-deps",
+    "build": "yarn rollup -c",
+    "run": "yarn electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "latest",
+    "electron-builder": "latest",
+    "rollup": "latest"
+  },
+  "build": {
+    "appId": "net.erajs.desktop",
+    "productName": "Era.js Game Engine",
+    "directories": {
+      "output": "build"
+    }
+  }
+}
