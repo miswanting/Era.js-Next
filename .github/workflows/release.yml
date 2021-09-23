@@ -25,6 +25,7 @@ jobs:
         with:
           ref: "dev"
       - name: Commands
+        shell: powershell
         run: |
           Set-Location -Path erajs-frontend
           yarn init
