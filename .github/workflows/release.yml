@@ -28,9 +28,11 @@ jobs:
         run: |
           Get-ChildItem | Write-Output
           Set-Location -Path erajs-frontend
+          Get-ChildItem | Write-Output
           yarn init
           yarn build
           Set-Location -Path ..\erajs-desktop
+          Get-ChildItem | Write-Output
           yarn init
           yarn pack
           Set-Location -Path ..
