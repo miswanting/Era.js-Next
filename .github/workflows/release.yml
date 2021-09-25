@@ -24,27 +24,32 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: "dev"
-      - name: Commands
+      - name: Build FrontEnd
         run: |
-          Get-ChildItem | Write-Output
           Set-Location -Path erajs-frontend
-          Get-ChildItem | Write-Output
           yarn
           yarn build
-          Set-Location -Path ..\erajs-desktop
-          Get-ChildItem | Write-Output
+          Set-Location -Path ..
+      - name: Build Desktop
+        run: |
+          Set-Location -Path erajs-desktop
           yarn
           yarn pack
           Set-Location -Path ..
-          Get-ChildItem | Write-Output
+      - name: Generate Web
+        run: |
           New-Item -Path Era.js-SDK-web -ItemType directory
           Copy-Item -Path erajs-sdk\* -Destination Era.js-SDK-web
           Copy-Item -Path erajs-backend\erajs -Destination Era.js-SDK-web
           Copy-Item -Path erajs-frontend\dist\* -Destination Era.js-SDK-web\erajs\www
+      - name: Generate Windows
+        run: |
           New-Item -Path Era.js-SDK-win-x64 -ItemType directory
           Get-ChildItem | Write-Output
           Copy-Item -Path Era.js-SDK-web\* -Destination Era.js-SDK-win-x64
           Copy-Item -Path erajs-desktop\build\win-unpacked\* -Destination Era.js-SDK-win-x64
+      - name: Compress
+        run: |
           Compress-Archive -Path Era.js-SDK-web -DestinationPath Era.js-SDK-web.zip
           Compress-Archive -Path Era.js-SDK-win-x64 -DestinationPath Era.js-SDK-win-x64.zip
       - name: Release
