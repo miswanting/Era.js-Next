@@ -8,7 +8,7 @@
   "license": "GPL-3.0+",
   "scripts": {
     "init": "yarn",
-    "postinstall": "yarn electron-builder install-app-deps",
+    "postinstall1": "yarn electron-builder install-app-deps",
     "build": "yarn rollup -c",
     "run": "yarn electron .",
     "pack": "electron-builder --dir",
