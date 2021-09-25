@@ -55,7 +55,7 @@ jobs:
         run: |
           Compress-Archive -Path Era.js-SDK-web -DestinationPath Era.js-SDK-web.zip
           Compress-Archive -Path Era.js-SDK-win-x64 -DestinationPath Era.js-SDK-win-x64.zip
-          Compress-Archive -Path Era.js-SDK-docs -DestinationPath Era.js-SDK-win-x64.zip
+          Compress-Archive -Path Era.js-SDK-docs -DestinationPath Era.js-SDK-docs.zip
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/v')  # Require a TAG
@@ -83,11 +83,11 @@ jobs:
           path: "source"
       - name: Build Documentation
         run: |
-          cd source\erajs-docs
+          cd source/erajs-docs
           yarn
           yarn run docs:build
-          cd ..\..
-          mv source/docs/.vitepress/dist dist
+          cd ../..
+          mv source/erajs-docs/docs/.vitepress/dist dist
           rm -r source
       - name: Try Delete Old Version 
         continue-on-error: true
