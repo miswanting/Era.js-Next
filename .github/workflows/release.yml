@@ -29,6 +29,7 @@ jobs:
           Set-Location -Path erajs-frontend
           yarn
           yarn build
+          yarn pack
           Set-Location -Path ..
       - name: Build Desktop
         run: |
