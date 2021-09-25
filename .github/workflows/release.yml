@@ -36,11 +36,13 @@ jobs:
           yarn
           yarn pack
           Set-Location -Path ..
+          Get-ChildItem | Write-Output
           New-Item -Path Era.js-SDK-web -ItemType directory
           Copy-Item -Path erajs-sdk\* -Destination Era.js-SDK-web
           Copy-Item -Path erajs-backend\erajs -Destination Era.js-SDK-web
           Copy-Item -Path erajs-frontend\dist\* -Destination Era.js-SDK-web\erajs\www
           New-Item -Path Era.js-SDK-win-x64 -ItemType directory
+          Get-ChildItem | Write-Output
           Copy-Item -Path Era.js-SDK-web\* -Destination Era.js-SDK-win-x64
           Copy-Item -Path erajs-desktop\build\win-unpacked\* -Destination Era.js-SDK-win-x64
           Compress-Archive -Path Era.js-SDK-web -DestinationPath Era.js-SDK-web.zip
