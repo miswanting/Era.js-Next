@@ -25,6 +25,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: "gh-pages"
+          path: "documentation"
       - name: Checkout Dev Branch
         uses: actions/checkout@v2
         with:
@@ -81,15 +82,15 @@ jobs:
             source\Era.js-SDK-win-x64.zip
       - name: Generate Documentation
         run: |
-          Copy-Item -Path source\erajs-docs\docs\.vitepress\dist -Destination dist -Recurse
+          Copy-Item -Path source\erajs-docs\docs\.vitepress\dist -Destination documentation\dist -Recurse
           Remove-Item -Path source -Recurse
       - name: Try Delete Old Version
         continue-on-error: true
         run: |
-          Remove-Item -Path docs -Recurse
+          Remove-Item -Path documentation\docs -Recurse
       - name: Rename
         run: |
-          Rename-Item -Path dist -NewName docs
+          Rename-Item -Path documentation\dist -NewName documentation\docs
       - name: Push
         uses: github-actions-x/commit@v2.8
         with:
@@ -97,7 +98,7 @@ jobs:
           push-branch: "gh-pages"
           commit-message: "Auto Generate & Deploy"
           force-add: "true"
-          files: ./*
+          files: ./documantation/*
           name: Miswanting
           email: ihex@foxmail.com
   # ubuntu-builder:
