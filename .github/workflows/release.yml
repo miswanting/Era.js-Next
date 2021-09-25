@@ -83,7 +83,6 @@ jobs:
       - name: Generate Documentation
         run: |
           Copy-Item -Path source\erajs-docs\docs\.vitepress\dist -Destination documentation\dist -Recurse
-          Remove-Item -Path source -Recurse
       - name: Try Delete Old Version
         continue-on-error: true
         run: |
