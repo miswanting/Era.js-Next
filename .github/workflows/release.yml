@@ -49,7 +49,7 @@ jobs:
       - name: Generate Documentation
         run: |
           New-Item -Path Era.js-SDK-docs -ItemType directory
-          Remove-Item -Path erajs-docs\docs\.vitepress
+          Remove-Item -Path erajs-docs\docs\.vitepress -Recurse
           Copy-Item -Path erajs-docs\docs\* -Destination Era.js-SDK-docs -Recurse
       - name: Compress
         run: |
@@ -83,10 +83,10 @@ jobs:
           path: "source"
       - name: Build Documentation
         run: |
-          cd source
+          cd source\erajs-docs
           yarn
           yarn run docs:build
-          cd ..
+          cd ..\..
           mv source/docs/.vitepress/dist dist
           rm -r source
       - name: Try Delete Old Version 
