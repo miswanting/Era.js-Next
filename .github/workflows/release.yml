@@ -29,11 +29,11 @@ jobs:
           Get-ChildItem | Write-Output
           Set-Location -Path erajs-frontend
           Get-ChildItem | Write-Output
-          yarn init
+          yarn
           yarn build
           Set-Location -Path ..\erajs-desktop
           Get-ChildItem | Write-Output
-          yarn init
+          yarn
           yarn pack
           Set-Location -Path ..
           New-Item -Path Era.js-SDK-web -ItemType directory
