@@ -11,8 +11,8 @@
     "postinstall1": "yarn electron-builder install-app-deps",
     "build": "yarn rollup -c",
     "run": "yarn electron .",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "pack": "yarn electron-builder --dir",
+    "dist": "yarn electron-builder"
   },
   "devDependencies": {
     "electron": "latest",
