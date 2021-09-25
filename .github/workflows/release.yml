@@ -29,12 +29,12 @@ jobs:
           Set-Location -Path erajs-frontend
           yarn
           yarn build
-          yarn pack
           Set-Location -Path ..
       - name: Build Desktop
         run: |
           Set-Location -Path erajs-desktop
           yarn
+          yarn build
           yarn pack
           Get-ChildItem | Write-Output
           Get-ChildItem -Path build | Write-Output
