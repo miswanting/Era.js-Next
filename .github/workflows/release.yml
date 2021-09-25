@@ -38,16 +38,14 @@ jobs:
       - name: Generate Web
         run: |
           New-Item -Path Era.js-SDK-web -ItemType directory
-          Copy-Item -Path erajs-sdk\* -Destination Era.js-SDK-web -Recurse
+          Copy-Item -Path erajs-sdk -Destination Era.js-SDK-web -Recurse
           Copy-Item -Path erajs-backend\erajs -Destination Era.js-SDK-web -Recurse
-          Get-ChildItem -Path erajs-frontend\dist | Write-Output
-          Copy-Item -Path erajs-frontend\dist\* -Destination Era.js-SDK-web\erajs\www -Recurse
-          Get-ChildItem -Path Era.js-SDK-web\erajs\www | Write-Output
+          Copy-Item -Path erajs-frontend\dist -Destination Era.js-SDK-web\erajs\www -Recurse
       - name: Generate Windows
         run: |
           New-Item -Path Era.js-SDK-win-x64 -ItemType directory
-          Copy-Item -Path Era.js-SDK-web\* -Destination Era.js-SDK-win-x64 -Recurse
-          Copy-Item -Path erajs-desktop\build\win-unpacked\* -Destination Era.js-SDK-win-x64 -Recurse
+          Copy-Item -Path Era.js-SDK-web -Destination Era.js-SDK-win-x64 -Recurse
+          Copy-Item -Path erajs-desktop\build\win-unpacked -Destination Era.js-SDK-win-x64\container -Recurse
       - name: Generate Documentation
         run: |
           New-Item -Path Era.js-SDK-docs -ItemType directory
