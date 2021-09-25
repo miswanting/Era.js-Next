@@ -1,0 +1,16 @@
+{
+  "name": "erajs-docs",
+  "version": "0.1.0",
+  "description": "Era.js Game Engine Documentation.",
+  "repository": "https://github.com/miswanting/Era.js-Next.git",
+  "author": "Miswanting",
+  "license": "GPL-3.0+",
+  "scripts": {
+    "docs:dev": "yarn vitepress dev docs",
+    "docs:build": "yarn vitepress build docs",
+    "docs:serve": "yarn vitepress serve docs"
+  },
+  "devDependencies": {
+    "vitepress": "^0.19.1"
+  }
+}

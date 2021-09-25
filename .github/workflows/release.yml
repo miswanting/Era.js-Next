@@ -2,8 +2,8 @@ name: Release
 
 on:
   push:
-    branches:
-      - dev
+    # branches:
+    #   - dev
     tags:
       - "v*.*.*"
 
@@ -20,12 +20,19 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: "16"
+      - name: Try Checkout Github Pages Branch
+        continue-on-error: true
+        uses: actions/checkout@v2
+        with:
+          ref: "gh-pages"
       - name: Checkout Dev Branch
         uses: actions/checkout@v2
         with:
           ref: "dev"
+          path: "source"
       - name: Build FrontEnd
         run: |
+          Set-Location -Path source
           Set-Location -Path erajs-frontend
           yarn
           yarn build
@@ -36,21 +43,24 @@ jobs:
           yarn
           yarn build
           yarn run pack
-          Get-ChildItem | Write-Output
-          Get-ChildItem -Path build | Write-Output
+          Set-Location -Path ..
+      - name: Build Documentation
+        run: |
+          Set-Location -Path erajs-docs
+          yarn
+          yarn run docs:build
           Set-Location -Path ..
       - name: Generate Web
         run: |
           New-Item -Path Era.js-SDK-web -ItemType directory
-          Copy-Item -Path erajs-sdk\* -Destination Era.js-SDK-web
-          Copy-Item -Path erajs-backend\erajs -Destination Era.js-SDK-web
-          Copy-Item -Path erajs-frontend\dist\* -Destination Era.js-SDK-web\erajs\www
+          Copy-Item -Path erajs-sdk\* -Destination Era.js-SDK-web -Recurse
+          Copy-Item -Path erajs-backend\erajs -Destination Era.js-SDK-web -Recurse
+          Copy-Item -Path erajs-frontend\dist\* -Destination Era.js-SDK-web\erajs\www -Recurse
       - name: Generate Windows
         run: |
           New-Item -Path Era.js-SDK-win-x64 -ItemType directory
-          Get-ChildItem | Write-Output
-          Copy-Item -Path Era.js-SDK-web\* -Destination Era.js-SDK-win-x64
-          Copy-Item -Path erajs-desktop\build\win-unpacked\* -Destination Era.js-SDK-win-x64
+          Copy-Item -Path Era.js-SDK-web\* -Destination Era.js-SDK-win-x64 -Recurse
+          Copy-Item -Path erajs-desktop\build\win-unpacked\* -Destination Era.js-SDK-win-x64 -Recurse
       - name: Compress
         run: |
           Compress-Archive -Path Era.js-SDK-web -DestinationPath Era.js-SDK-web.zip
@@ -64,6 +74,28 @@ jobs:
           files: |
             Era.js-SDK-web.zip
             Era.js-SDK-win-x64.zip
+      - name: Generate Documentation
+        run: |
+          Set-Location -Path ..
+          Copy-Item -Path source\erajs-docs\docs\.vitepress\dist -Destination dist -Recurse
+          Remove-Item -Path source -Recurse
+      - name: Try Delete Old Version
+        continue-on-error: true
+        run: |
+          Remove-Item -Path docs -Recurse
+      - name: Rename
+        run: |
+          Rename-Item -Path dist -NewName docs
+      - name: Push
+        uses: github-actions-x/commit@v2.8
+        with:
+          github-token: ${{ secrets.key }}
+          push-branch: "gh-pages"
+          commit-message: "Auto Generate & Deploy"
+          force-add: "true"
+          files: ./*
+          name: Miswanting
+          email: ihex@foxmail.com
   # ubuntu-builder:
   #   runs-on: ubuntu-latest
   #   steps:
