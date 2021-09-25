@@ -39,6 +39,7 @@ jobs:
           Set-Location -Path ..
       - name: Build Desktop
         run: |
+          Set-Location -Path source
           Set-Location -Path erajs-desktop
           yarn
           yarn build
@@ -46,23 +47,27 @@ jobs:
           Set-Location -Path ..
       - name: Build Documentation
         run: |
+          Set-Location -Path source
           Set-Location -Path erajs-docs
           yarn
           yarn run docs:build
           Set-Location -Path ..
       - name: Generate Web
         run: |
+          Set-Location -Path source
           New-Item -Path Era.js-SDK-web -ItemType directory
           Copy-Item -Path erajs-sdk\* -Destination Era.js-SDK-web -Recurse
           Copy-Item -Path erajs-backend\erajs -Destination Era.js-SDK-web -Recurse
           Copy-Item -Path erajs-frontend\dist\* -Destination Era.js-SDK-web\erajs\www -Recurse
       - name: Generate Windows
         run: |
+          Set-Location -Path source
           New-Item -Path Era.js-SDK-win-x64 -ItemType directory
           Copy-Item -Path Era.js-SDK-web\* -Destination Era.js-SDK-win-x64 -Recurse
           Copy-Item -Path erajs-desktop\build\win-unpacked\* -Destination Era.js-SDK-win-x64 -Recurse
       - name: Compress
         run: |
+          Set-Location -Path source
           Compress-Archive -Path Era.js-SDK-web -DestinationPath Era.js-SDK-web.zip
           Compress-Archive -Path Era.js-SDK-win-x64 -DestinationPath Era.js-SDK-win-x64.zip
           Write-Output ${{ github.ref }}
@@ -72,11 +77,10 @@ jobs:
         with:
           # token: ${{ secrets.key }}
           files: |
-            Era.js-SDK-web.zip
-            Era.js-SDK-win-x64.zip
+            source\Era.js-SDK-web.zip
+            source\Era.js-SDK-win-x64.zip
       - name: Generate Documentation
         run: |
-          Set-Location -Path ..
           Copy-Item -Path source\erajs-docs\docs\.vitepress\dist -Destination dist -Recurse
           Remove-Item -Path source -Recurse
       - name: Try Delete Old Version
