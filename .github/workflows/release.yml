@@ -60,7 +60,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/v')  # Require a TAG
         with:
-          token: ${{ secrets.key }}
+          # token: ${{ secrets.key }}
           files: |
             Era.js-SDK-web.zip
             Era.js-SDK-win-x64.zip
