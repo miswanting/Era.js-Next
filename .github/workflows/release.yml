@@ -38,7 +38,7 @@ jobs:
       - name: Generate Web
         run: |
           New-Item -Path Era.js-SDK-web -ItemType directory
-          Copy-Item -Path erajs-sdk -Destination Era.js-SDK-web -Recurse
+          Copy-Item -Path erajs-sdk\* -Destination Era.js-SDK-web -Recurse
           Copy-Item -Path erajs-backend\erajs -Destination Era.js-SDK-web -Recurse
           Copy-Item -Path erajs-frontend\dist -Destination Era.js-SDK-web\erajs\www -Recurse
       - name: Generate Windows
