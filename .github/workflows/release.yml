@@ -57,6 +57,7 @@ jobs:
           Compress-Archive -Path Era.js-SDK-win-x64 -DestinationPath Era.js-SDK-win-x64.zip
       - name: Release
         uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')  # Require a TAG
         with:
           token: ${{ secrets.key }}
           files: |
