@@ -44,7 +44,7 @@ jobs:
       - name: Generate Windows
         run: |
           New-Item -Path Era.js-SDK-win-x64 -ItemType directory
-          Copy-Item -Path Era.js-SDK-web -Destination Era.js-SDK-win-x64 -Recurse
+          Copy-Item -Path Era.js-SDK-web\* -Destination Era.js-SDK-win-x64 -Recurse
           Copy-Item -Path erajs-desktop\build\win-unpacked -Destination Era.js-SDK-win-x64\container -Recurse
       - name: Generate Documentation
         run: |
