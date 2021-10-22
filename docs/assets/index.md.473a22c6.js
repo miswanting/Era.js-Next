@@ -1,1 +1,0 @@
-import{_ as t,c as a,o as e,a as r}from"./app.7fa278cc.js";const n='{"title":"","description":"","frontmatter":{},"relativePath":"index.md","lastUpdated":1632564929118}',s={},d=[r("p",null,"test",-1)];var i=t(s,[["render",function(t,r,n,s,i,l){return e(),a("div",null,d)}]]);export{n as __pageData,i as default};
