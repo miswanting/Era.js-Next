@@ -1,0 +1,11 @@
+{
+  "configurations": [
+    {
+      "name": "Python: Launcher",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceRoot}/Launcher.py",
+      "console": "integratedTerminal"
+    },
+  ]
+}

@@ -1,2 +1,5 @@
 from .modules import server
-server.start(port=80)
+
+
+def init():
+    server.start(port=80)

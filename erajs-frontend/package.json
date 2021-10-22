@@ -9,13 +9,23 @@
     "init": "yarn",
     "dev": "yarn vite",
     "build": "yarn vue-tsc --noEmit && yarn vite build",
+    "watch": "yarn vue-tsc --noEmit && yarn vite build --watch",
     "serve": "yarn vite preview"
   },
   "dependencies": {
-    "vue": "next"
+    "@fortawesome/fontawesome-free": "next",
+    "is-electron": "latest",
+    "sanitize.css": "latest",
+    "vue": "next",
+    "vue-i18n": "next",
+    "vue-router": "next",
+    "vuex": "next"
   },
   "devDependencies": {
+    "@rollup/plugin-yaml": "latest",
     "@vitejs/plugin-vue": "latest",
+    "pug": "latest",
+    "stylus": "latest",
     "typescript": "latest",
     "vite": "latest",
     "vue-tsc": "latest"

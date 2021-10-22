@@ -1,4 +1,10 @@
 colorama
+cryptography
+email-validator
 fastapi
+passlib[bcrypt]
+python-jose[cryptography]
+python-multipart
+pyyaml
 uvicorn[standard]
 semver
