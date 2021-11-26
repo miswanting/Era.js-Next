@@ -14,7 +14,10 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "next",
+    "@types/js-cookie": "latest",
     "is-electron": "latest",
+    "js-cookie": "latest",
+    "lodash": "latest",
     "sanitize.css": "latest",
     "vue": "next",
     "vue-i18n": "next",
